@@ -6,18 +6,29 @@ const db = require("../db");
 
 
 // 팀 조회
+// 팀 조회
 router.get("/", (req, res) => {
 
     const sql = `
         SELECT
             t.id,
             t.team_name,
-            r.region_name
+            r.region_name,
+
+            COUNT(p.id) AS player_count
 
         FROM teams t
 
         JOIN regions r
         ON t.region_id = r.id
+
+        LEFT JOIN players p
+        ON p.team_id = t.id
+
+        GROUP BY
+            t.id,
+            t.team_name,
+            r.region_name
     `;
 
     db.query(sql, (err, result) => {

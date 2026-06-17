@@ -84,5 +84,83 @@ router.post("/", (req, res) => {
 
 });
 
+// 선수 삭제
+router.delete("/:id", (req, res) => {
+
+    const playerId = req.params.id;
+
+    db.query(
+        "DELETE FROM goals WHERE player_id = ?",
+        [playerId],
+        (err) => {
+
+            if (err) {
+                console.log(err);
+                return res.send("골 기록 삭제 실패");
+            }
+
+            db.query(
+                "DELETE FROM players WHERE id = ?",
+                [playerId],
+                (err) => {
+
+                    if (err) {
+                        console.log(err);
+                        res.send("선수 삭제 실패");
+                    } else {
+                        res.send("삭제 성공");
+                    }
+
+                }
+            );
+
+        }
+    );
+
+});
+
+// 선수 수정
+router.put("/:id", (req, res) => {
+
+    const {
+        player_name,
+        jersey_number,
+        team_id,
+        position_id
+    } = req.body;
+
+    const sql = `
+        UPDATE players
+        SET
+            player_name = ?,
+            jersey_number = ?,
+            team_id = ?,
+            position_id = ?
+        WHERE id = ?
+    `;
+
+    db.query(
+        sql,
+        [
+            player_name,
+            jersey_number,
+            team_id,
+            position_id,
+            req.params.id
+        ],
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                res.send("수정 실패");
+            } else {
+                res.send("수정 성공");
+            }
+
+        }
+    );
+
+});
+
 
 module.exports = router;
