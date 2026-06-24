@@ -6,7 +6,6 @@ const db = require("../db");
 
 
 // 팀 조회
-// 팀 조회
 router.get("/", (req, res) => {
 
     const sql = `

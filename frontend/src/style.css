@@ -276,3 +276,33 @@ td {
 .edit-btn:hover {
   opacity: 0.9;
 }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin-bottom: 10px;
+  color: #64748b;
+}
+
+.stat-card p {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.table-card h2 {
+  color: #64748b;
+  text-align: center;
+  margin-top: 15px;
+}
